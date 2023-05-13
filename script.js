@@ -1,30 +1,25 @@
-const year = new Date().getFullYear();
-const tenthOfAugust = new Date(year, 8, 10).getTime();
-const tenthOfAugustNextYear = new Date(year + 1, 8, 10).getTime();
-const month = new Date().getMonth();
+var endTime = new Date("August 10, 2023 00:00:00 UTC+8");
+var endTime = (Date.parse(endTime)) / 1000;
 
 // countdown
 let timer = setInterval(function() {
 
   // get today's date
-  const today = new Date().getTime();
+  var now = new Date();
+	var now = (Date.parse(now) / 1000);
 
   // get the difference
-  let diff;
-  if(month > 8) {
-    diff = tenthOfAugustNextYear - today;
-  } else {
-    diff = tenthOfAugust - today;
-  }
+  let diff = endTime - now;
 
+  // // math
+  var days = Math.floor(diff / 86400); 
+  var hours = Math.floor((diff - (days * 86400)) / 3600);
+  var minutes = Math.floor((diff - (days * 86400) - (hours * 3600 )) / 60);
+  var seconds = Math.floor((diff - (days * 86400) - (hours * 3600) - (minutes * 60)));
 
-
-
-  // math
-  let days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  let seconds = Math.floor((diff % (1000 * 60)) / 1000);
+  if (hours < "10") { hours = "0" + hours; }
+  if (minutes < "10") { minutes = "0" + minutes; }
+  if (seconds < "10") { seconds = "0" + seconds; }
 
   // display
   document.getElementById("timer").innerHTML =
